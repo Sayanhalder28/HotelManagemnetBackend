@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cognizant.training.hotelmanagement.model.Staff;
 import com.cognizant.training.hotelmanagement.repository.StaffRepository;
 
-
 @RestController
-public class HotelmanagementApplicationControler {
+public class HotelmanagementApplicationController {
 
     @Autowired
     private StaffRepository staffRepository;
 
-
     @GetMapping("/")
-    public List<Staff> getAllStuffDetails(){
+    public List<Staff> getAllStuffDetails() {
         return staffRepository.findAll();
     }
 
@@ -28,5 +26,5 @@ public class HotelmanagementApplicationControler {
         Staff savedStaffDetails = staffRepository.save(staff);
         return savedStaffDetails;
     }
-    
+
 }
