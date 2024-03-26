@@ -3,7 +3,7 @@ package com.cognizant.training.hotelmanagement.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.training.hotelmanagement.model.Booking;
-import com.cognizant.training.hotelmanagement.repository.BookingRepository;
+import com.cognizant.training.hotelmanagement.service.BookingService;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BookingController {
 
     @Autowired
-    private BookingRepository bookingRepository;
+    private BookingService bookingService;
 
     @GetMapping("/all-booking-details")
     public List<Booking> getMethodName() {
-        return bookingRepository.findAll();
+        return bookingService.getAllBookingDetails();
     }
 
+    @GetMapping("/make-booking")
+    public String makeBooking() {
+        return bookingService.makeBooking();
+    }
 }

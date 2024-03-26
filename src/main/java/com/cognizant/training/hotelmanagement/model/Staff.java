@@ -2,14 +2,20 @@ package com.cognizant.training.hotelmanagement.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.ToString;
+
 // import jakarta.persistence.Table;
 
 @Entity
+@ToString
 public class Staff {
 
     @Id
-    @Column(name = "staff_id" , nullable = false, length = 20)
+    @Column(name = "staff_id" , nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String staff_id;
 
     @Column(name = "first_name" , nullable = false, length = 50)
@@ -24,8 +30,7 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(String staff_ID, String first_name, String last_name, String phone_no, String position) {
-        this.staff_id = staff_ID;
+    public Staff(String first_name, String last_name, String phone_no, String position) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone_no = phone_no;

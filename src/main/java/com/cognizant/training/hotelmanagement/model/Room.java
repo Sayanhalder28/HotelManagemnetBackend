@@ -1,8 +1,11 @@
 package com.cognizant.training.hotelmanagement.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +21,9 @@ public class Room {
     @Column(name = "room_status", nullable = false, length = 20)
     private String room_status;
 
+    @OneToMany(mappedBy = "room_id_fk")
+    private List<Booking> bookings;
+
     // Constructors
 
     public Room() {
@@ -29,6 +35,15 @@ public class Room {
         this.room_type = room_type;
         this.room_status = room_status;
     }
+
+    public Room(String room_id, String room_no, String room_type, String room_status, List<Booking> bookings) {
+        this.room_id = room_id;
+        this.room_no = room_no;
+        this.room_type = room_type;
+        this.room_status = room_status;
+        this.bookings = bookings;
+    }
+    
 
     // Getter and Setter methods
 
@@ -63,4 +78,13 @@ public class Room {
     public void setRoom_status(String room_status) {
         this.room_status = room_status;
     }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+  
 }

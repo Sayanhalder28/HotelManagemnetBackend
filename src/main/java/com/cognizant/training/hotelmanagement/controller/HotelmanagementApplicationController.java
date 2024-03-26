@@ -19,12 +19,4 @@ public class HotelmanagementApplicationController {
     public List<Staff> getAllStuffDetails() {
         return staffRepository.findAll();
     }
-
-    @GetMapping("/save")
-    public Staff getMethodName() {
-        Staff staff = new Staff("STF001", "sayan", "halder", "1234567890", "Manager");
-        Staff savedStaffDetails = staffRepository.save(staff);
-        return savedStaffDetails;
-    }
-
 }

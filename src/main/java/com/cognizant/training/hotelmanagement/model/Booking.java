@@ -1,14 +1,14 @@
 package com.cognizant.training.hotelmanagement.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-
-import java.time.LocalDateTime;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Booking {
@@ -18,11 +18,11 @@ public class Booking {
     @Column(name = "booking_id", nullable = false, length = 50)
     private int booking_id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id_fk", nullable = false, referencedColumnName = "customer_id")
     private Customer customer_id_fk;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "room_id_fk", nullable = false, referencedColumnName = "room_id")
     private Room room_id_fk;
 

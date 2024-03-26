@@ -1,14 +1,22 @@
 package com.cognizant.training.hotelmanagement.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.ToString;
 
 @Entity
+@ToString
 public class Customer {
 
     @Id
-    @Column(name = "customer_id", nullable = false, length = 20)
+    @Column(name = "customer_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String customer_id;
 
     @Column(name = "first_name", nullable = false, length = 50)
@@ -20,17 +28,30 @@ public class Customer {
     @Column(name = "mail", nullable = false, length = 50)
     private String mail;
 
+    @OneToMany(mappedBy = "customer_id_fk")
+    private List<Booking> bookings;
+
     // Constructors, getters, and setters
 
     public Customer() {
     }
 
-    public Customer(String customer_id, String first_name, String last_name, String phone_no, String mail) {
-        this.customer_id = customer_id;
+    public Customer(String first_name, String last_name, String phone_no, String mail) {
+        // this.customer_id = customer_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone_no = phone_no;
         this.mail = mail;
+    }
+
+    public Customer(String first_name, String last_name, String phone_no, String mail,
+            List<Booking> bookings) {
+        // this.customer_id = customer_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.phone_no = phone_no;
+        this.mail = mail;
+        this.bookings = bookings;
     }
 
     public String getCustomer_id() {
@@ -72,5 +93,13 @@ public class Customer {
     public void setMail(String mail) {
         this.mail = mail;
     }
-   
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
 }
