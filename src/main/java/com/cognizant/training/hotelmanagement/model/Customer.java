@@ -2,6 +2,8 @@ package com.cognizant.training.hotelmanagement.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,7 @@ public class Customer {
     private String mail;
 
     @OneToMany(mappedBy = "customer_id_fk")
+    @JsonBackReference
     private List<Booking> bookings;
 
     // Constructors, getters, and setters

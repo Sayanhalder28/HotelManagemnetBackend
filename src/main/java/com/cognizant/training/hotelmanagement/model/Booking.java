@@ -2,6 +2,8 @@ package com.cognizant.training.hotelmanagement.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,14 +18,16 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id", nullable = false, length = 50)
-    private int booking_id;
+    private Integer booking_id;
 
     @ManyToOne
     @JoinColumn(name = "customer_id_fk", nullable = false, referencedColumnName = "customer_id")
+    @JsonManagedReference
     private Customer customer_id_fk;
 
     @ManyToOne
     @JoinColumn(name = "room_id_fk", nullable = false, referencedColumnName = "room_id")
+    @JsonManagedReference
     private Room room_id_fk;
 
     @Column(name = "check_in_date", nullable = false)
@@ -38,9 +42,8 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(int booking_id, Customer customer_id_fk, Room room_id_fk, LocalDateTime check_in_date,
+    public Booking(Customer customer_id_fk, Room room_id_fk, LocalDateTime check_in_date,
             LocalDateTime check_out_date, boolean is_canceled) {
-        this.booking_id = booking_id;
         this.customer_id_fk = customer_id_fk;
         this.room_id_fk = room_id_fk;
         this.check_in_date = check_in_date;
@@ -48,11 +51,11 @@ public class Booking {
         this.is_canceled = is_canceled;
     }
 
-    public int getBooking_id() {
+    public Integer getBooking_id() {
         return booking_id;
     }
 
-    public void setBooking_id(int booking_id) {
+    public void setBooking_id(Integer booking_id) {
         this.booking_id = booking_id;
     }
 

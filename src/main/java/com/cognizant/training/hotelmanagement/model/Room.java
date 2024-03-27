@@ -2,8 +2,12 @@ package com.cognizant.training.hotelmanagement.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -12,8 +16,9 @@ import jakarta.persistence.Table;
 @Table(name = "room")
 public class Room {
     @Id
-    @Column(name = "room_id", nullable = false, length = 50)
-    private String room_id;
+    @Column(name = "room_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer room_id;
     @Column(name = "room_no", nullable = false, length = 20)
     private String room_no;
     @Column(name = "room_type", nullable = false, length = 50)
@@ -22,6 +27,7 @@ public class Room {
     private String room_status;
 
     @OneToMany(mappedBy = "room_id_fk")
+    @JsonBackReference
     private List<Booking> bookings;
 
     // Constructors
@@ -29,30 +35,27 @@ public class Room {
     public Room() {
     }
 
-    public Room(String room_id, String room_no, String room_type, String room_status) {
-        this.room_id = room_id;
+    public Room(String room_no, String room_type, String room_status) {
         this.room_no = room_no;
         this.room_type = room_type;
         this.room_status = room_status;
     }
 
-    public Room(String room_id, String room_no, String room_type, String room_status, List<Booking> bookings) {
-        this.room_id = room_id;
+    public Room(String room_no, String room_type, String room_status, List<Booking> bookings) {
         this.room_no = room_no;
         this.room_type = room_type;
         this.room_status = room_status;
         this.bookings = bookings;
     }
-    
 
     // Getter and Setter methods
 
-    public String getRoom_id() {
+    public Integer getRoom_id() {
         return room_id;
     }
 
-    public void setRoom_id(String room_id) {
-        this.room_id = room_id;
+    public Integer setRoom_id(Integer room_id) {
+        return this.room_id = room_id;
     }
 
     public String getRoom_no() {
@@ -86,5 +89,5 @@ public class Room {
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
-  
+
 }

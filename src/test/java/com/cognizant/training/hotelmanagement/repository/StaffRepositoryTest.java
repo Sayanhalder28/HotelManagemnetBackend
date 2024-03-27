@@ -64,7 +64,9 @@ public class StaffRepositoryTest {
         staff3.setPhone_no("1234567890");
         staff3.setPosition("Manager");
 
-        List<Staff> response = staffRepository.saveAll(List.of(staff1, staff2, staff3));
+        List<Staff> staffList = List.of(staff1, staff2, staff3);
+
+        List<Staff> response = staffRepository.saveAll(staffList);
         System.out.println(response.toString());
     }
 

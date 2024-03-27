@@ -3,7 +3,6 @@ package com.cognizant.training.hotelmanagement.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.training.hotelmanagement.model.Customer;
-import com.cognizant.training.hotelmanagement.repository.CustomerRepository;
 import com.cognizant.training.hotelmanagement.service.CustomerService;
 
 import java.util.List;

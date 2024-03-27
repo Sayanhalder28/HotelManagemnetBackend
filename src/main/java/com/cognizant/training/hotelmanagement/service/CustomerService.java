@@ -21,8 +21,9 @@ public class CustomerService {
 
     public Optional<Customer> addCustomer(String first_name, String last_name, String phone_no, String mail) {
 
-        //check for the mail if already exist 
+        // check for the mail if already exist
 
+        // save and return the result
         Customer newCustomer = new Customer(first_name, last_name, phone_no, mail);
         return Optional.ofNullable(customerRepository.save(newCustomer));
     }
