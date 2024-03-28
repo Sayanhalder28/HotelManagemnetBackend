@@ -34,7 +34,7 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public String makeBooking(String customer_id, String room_id,
+    public String makeBooking(String customer_id, Integer room_id,
             String check_in_date, String check_out_date,
             boolean is_canceled) {
 

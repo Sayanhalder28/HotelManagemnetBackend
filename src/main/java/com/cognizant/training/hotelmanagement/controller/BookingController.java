@@ -30,7 +30,7 @@ public class BookingController {
         }
 
         @GetMapping("/make-booking")
-        public String makeBooking(@RequestParam String customer_id, @RequestParam String room_id,
+        public String makeBooking(@RequestParam String customer_id, @RequestParam Integer room_id,
                         @RequestParam String check_in_date, @RequestParam String check_out_date,
                         @RequestParam boolean is_canceled) {
 
