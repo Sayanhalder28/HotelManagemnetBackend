@@ -20,7 +20,7 @@ public class StaffRepositoryTest {
         staff.setStaff_ID("STF001");
         staff.setFirst_name("John");
         staff.setLast_name("Doe");
-        staff.setPhone_no("1234567890");
+        staff.setMail("admin@xyz.in");
         staff.setPosition("Manager");
 
         Staff response = staffRepository.save(staff);
@@ -47,21 +47,21 @@ public class StaffRepositoryTest {
         staff1.setStaff_ID("STF002");
         staff1.setFirst_name("John");
         staff1.setLast_name("Doe");
-        staff1.setPhone_no("1234567890");
+        staff1.setMail("admin2@xyz.in");
         staff1.setPosition("Manager");
 
         Staff staff2 = new Staff();
         staff2.setStaff_ID("STF003");
         staff2.setFirst_name("John");
         staff2.setLast_name("Doe");
-        staff2.setPhone_no("1234567890");
+        staff2.setMail("admin3@xyz.in");
         staff2.setPosition("Manager");
 
         Staff staff3 = new Staff();
         staff3.setStaff_ID("STF004");
         staff3.setFirst_name("John");
         staff3.setLast_name("Doe");
-        staff3.setPhone_no("1234567890");
+        staff3.setMail("admin34@xyz.in");
         staff3.setPosition("Manager");
 
         List<Staff> staffList = List.of(staff1, staff2, staff3);

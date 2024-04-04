@@ -21,13 +21,19 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String customer_id;
 
+    @Column(name = "password", nullable = false, length = 50)
+    private String password;
+
     @Column(name = "first_name", nullable = false, length = 50)
     private String first_name;
+
     @Column(name = "last_name", nullable = false, length = 50)
     private String last_name;
+
     @Column(name = "phone_no", nullable = false, length = 15)
     private String phone_no;
-    @Column(name = "mail", nullable = false, length = 50)
+
+    @Column(name = "mail", nullable = false, length = 50, unique = true)
     private String mail;
 
     @OneToMany(mappedBy = "customer_id_fk")
@@ -39,17 +45,16 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String first_name, String last_name, String phone_no, String mail) {
-        // this.customer_id = customer_id;
+    public Customer(String first_name, String last_name, String password, String phone_no, String mail) {
+        this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone_no = phone_no;
         this.mail = mail;
     }
 
-    public Customer(String first_name, String last_name, String phone_no, String mail,
+    public Customer(String first_name, String last_name, String password, String phone_no, String mail,
             List<Booking> bookings) {
-        // this.customer_id = customer_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone_no = phone_no;
@@ -63,6 +68,14 @@ public class Customer {
 
     public void setCustomer_id(String customer_id) {
         this.customer_id = customer_id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirst_name() {

@@ -19,11 +19,21 @@ public class StaffService {
         return staffRepository.findAll();
     }
 
-    public Optional<Staff> addStaff(String first_name, String last_name, String phone_no, String position) {
-        
-        Staff newStaff = new Staff(first_name, last_name, phone_no, position);
-        
+    public Optional<Staff> addStaff(String first_name, String last_name, String password, String mail,
+            String position) {
+
+        Staff newStaff = new Staff(first_name, last_name, password, mail, position);
+
         return Optional.ofNullable(staffRepository.save(newStaff));
     }
-    
+
+    public String login(String mail, String password) {
+        Optional<Staff> response = staffRepository.findByMailAndPassword(mail, password);
+        if (response.isPresent()) {
+            return response.get().getStaff_ID();
+        } else {
+            return "null";
+        }
+    }
+
 }

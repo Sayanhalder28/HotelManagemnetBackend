@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.training.hotelmanagement.model.Booking;
+
 import com.cognizant.training.hotelmanagement.model.Room;
 import com.cognizant.training.hotelmanagement.service.RoomService;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,15 +24,12 @@ public class RoomController {
     }
 
     @GetMapping("/add-room")
-    public String getMethodName(@RequestParam String room_no, @RequestParam String room_type,
+    public String getMethodName(@RequestParam String staff_id ,@RequestParam String room_no, @RequestParam String room_type,
             @RequestParam String room_status) {
 
-        Optional<Room> savedRoom = roomService.addRoom(room_no, room_type, room_status);
+        String response = roomService.addRoom(staff_id,room_no, room_type, room_status);
 
-        if (savedRoom.isPresent()) {
-            return savedRoom.get().getRoom_id().toString();
-        } else
-            return "Room registration failed";
+        return response;
     }
 
 }

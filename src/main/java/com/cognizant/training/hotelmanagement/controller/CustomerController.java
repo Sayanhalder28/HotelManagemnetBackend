@@ -25,13 +25,20 @@ public class CustomerController {
 
     @GetMapping("/register-customer")
     public String getMethodName(@RequestParam String first_name, @RequestParam String last_name,
+            @RequestParam String password,
             @RequestParam String phone_no, @RequestParam String mail) {
 
-        Optional<Customer> savedCustomer = customerService.addCustomer(first_name, last_name, phone_no, mail);
+        Optional<Customer> savedCustomer = customerService.addCustomer(first_name, password, last_name, phone_no, mail);
         if (savedCustomer.isPresent()) {
             return savedCustomer.get().getCustomer_id();
         } else
             return "Customer registration failed";
+    }
+
+    @GetMapping("/login-customer")
+    public String getMethodName(@RequestParam String mail, @RequestParam String password) {
+        String customer = customerService.login(mail, password);
+        return customer;
     }
 
 }

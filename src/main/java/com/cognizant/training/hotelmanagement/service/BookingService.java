@@ -34,18 +34,18 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public String makeBooking(String customer_id, Integer room_id,
+    public String makeBooking(String customer_id, String room_id,
             String check_in_date, String check_out_date,
             boolean is_canceled) {
 
         if (customer_id == null || room_id == null || check_in_date == null || check_out_date == null)
             return "Invalid input";
 
-        Optional<Customer> customer_details = Optional.ofNullable(customerRepository.findById(customer_id))
-                .orElseThrow(() -> new IllegalArgumentException("Not an user"));
+        Optional<Customer> customer_details = customerRepository.findById(customer_id);
+                
 
-        Optional<Room> room_details = Optional.ofNullable(roomRepository.findById(room_id))
-                .orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        Optional<Room> room_details = roomRepository.findById(room_id)
+                
 
         if (customer_details.isEmpty() || room_details.isEmpty()) {
             return "Customer or Room not found";

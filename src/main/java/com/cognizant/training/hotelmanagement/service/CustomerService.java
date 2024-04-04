@@ -19,13 +19,25 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-    public Optional<Customer> addCustomer(String first_name, String last_name, String phone_no, String mail) {
+    public Optional<Customer> addCustomer(String first_name, String password, String last_name, String phone_no,
+            String mail) {
 
         // check for the mail if already exist
 
         // save and return the result
-        Customer newCustomer = new Customer(first_name, last_name, phone_no, mail);
+        Customer newCustomer = new Customer(first_name, last_name, password, phone_no, mail);
         return Optional.ofNullable(customerRepository.save(newCustomer));
+    }
+
+    // login service
+    public String login(String mail, String password) {
+        Optional<Customer> response = customerRepository.findByMailAndPassword(mail,
+                password);
+        if (response.isPresent()) {
+            return "loged in successfully";
+        } else {
+            return "login failed";
+        }
     }
 
 }

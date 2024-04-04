@@ -7,25 +7,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cognizant.training.hotelmanagement.model.Room;
+import com.cognizant.training.hotelmanagement.model.Staff;
+
 import com.cognizant.training.hotelmanagement.repository.RoomRepository;
+import com.cognizant.training.hotelmanagement.repository.StaffRepository;
 
 @Service
 public class RoomService {
 
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private StaffRepository staffRepository;
 
     public List<Room> getAllRoomDetails() {
         return roomRepository.findAll();
     }
 
-    public Optional<Room> addRoom(String room_no, String room_type, String room_status) {
+    public String addRoom(String staff_id, String room_no, String room_type, String room_status) {
 
-        //check for the room if already exist 
+        // check whether the user is authorised to add new room
 
-        //save and return the result
-        Room newRoom = new Room(room_no, room_type, room_status);
-        return Optional.ofNullable(roomRepository.save(newRoom));  
+        Optional<Staff> staff_details = staffRepository.findById(staff_id);
+
+        if (staff_details.isEmpty()) {
+            return "User not found";
+        } else {
+            String position = staff_details.get().getPosition();
+            System.out.println(position);
+            if (!position.equals("manager")) {
+                return "User not authorised";
+            } else {
+                Room newRoom = new Room(room_no, room_type, room_status);
+                Optional<Room> response = Optional.ofNullable(roomRepository.save(newRoom));
+                if (response.isPresent()) {
+                    return response.get().getRoom_id();
+                } else {
+                    return "null";
+                }
+            }
+        }
+
     }
 
 }

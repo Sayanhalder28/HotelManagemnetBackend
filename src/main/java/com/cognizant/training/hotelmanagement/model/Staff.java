@@ -14,26 +14,33 @@ import lombok.ToString;
 public class Staff {
 
     @Id
-    @Column(name = "staff_id" , nullable = false)
+    @Column(name = "staff_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
     private String staff_id;
 
-    @Column(name = "first_name" , nullable = false, length = 50)
+    @Column(name = "first_name", nullable = false, length = 50)
     private String first_name;
-    @Column(name = "last_name" , nullable = false, length = 50)
+
+    @Column(name = "last_name", nullable = false, length = 50)
     private String last_name;
-    @Column(name = "phone_no" , nullable = false, length = 15)
-    private String phone_no;
-    @Column(name = "position" , nullable = false, length = 50)
+
+    @Column(name = "mail", nullable = false, length = 50)
+    private String password;
+
+    @Column(name = "phone_no", nullable = false, length = 50, unique = true)
+    private String mail;
+
+    @Column(name = "position", nullable = false, length = 50)
     private String position;
 
     public Staff() {
     }
 
-    public Staff(String first_name, String last_name, String phone_no, String position) {
+    public Staff(String first_name, String last_name,String password, String mail, String position) {
         this.first_name = first_name;
         this.last_name = last_name;
-        this.phone_no = phone_no;
+        this.password = password;
+        this.mail = mail;
         this.position = position;
     }
     // getters and setters
@@ -62,12 +69,20 @@ public class Staff {
         this.last_name = last_name;
     }
 
-    public String getPhone_no() {
-        return phone_no;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhone_no(String phone_no) {
-        this.phone_no = phone_no;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getPosition() {
