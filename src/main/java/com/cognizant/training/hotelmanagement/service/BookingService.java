@@ -40,7 +40,7 @@ public class BookingService {
         Optional<Customer> customer_details = customerRepository.findById(customer_id);
                 
 
-        Optional<Room> room_details = roomRepository.findById(room_id)
+        Optional<Room> room_details = roomRepository.findById(room_id);
                 
 
         if (customer_details.isEmpty() || room_details.isEmpty()) {
