@@ -27,13 +27,24 @@ public class BookingController {
                         @RequestParam String check_in_date, @RequestParam String check_out_date,
                         @RequestParam boolean is_canceled) {
 
-                return bookingService.makeBooking(customer_id, room_id, check_in_date, check_out_date, is_canceled);
+                return bookingService.makeBooking(customer_id, room_id, check_in_date, is_canceled);
 
         }
 
         @GetMapping("/my-booking")
-        public List<Booking> getMethodName(@RequestParam String customer_id) {
+        public List<Booking> myBooking(@RequestParam String customer_id) {
             return bookingService.getMyBooking(customer_id);
+        }
+
+        @GetMapping("/cancel-booking")
+        public String getMethodName(@RequestParam Integer booking_id) {
+            return bookingService.cancelBooking(booking_id);
+        }
+
+        //update checkout date
+        @GetMapping("/update-checkout")
+        public String getMethodName(@RequestParam Integer booking_id, @RequestParam String check_out_date) {
+            return bookingService.updateCheckout(booking_id, check_out_date);
         }
         
 }

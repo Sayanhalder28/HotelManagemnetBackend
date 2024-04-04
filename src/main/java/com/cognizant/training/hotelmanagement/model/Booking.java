@@ -33,13 +33,21 @@ public class Booking {
     @Column(name = "check_in_date", nullable = false)
     private LocalDateTime check_in_date;
 
-    @Column(name = "check_out_date", nullable = false)
+    @Column(name = "check_out_date", nullable = true)
     private LocalDateTime check_out_date;
 
     @Column(name = "is_canceled", nullable = false)
     private boolean is_canceled;
 
     public Booking() {
+    }
+
+    public Booking(Customer customer_id_fk, Room room_id_fk, LocalDateTime check_in_date,
+            boolean is_canceled) {
+        this.customer_id_fk = customer_id_fk;
+        this.room_id_fk = room_id_fk;
+        this.check_in_date = check_in_date;
+        this.is_canceled = is_canceled;
     }
 
     public Booking(Customer customer_id_fk, Room room_id_fk, LocalDateTime check_in_date,

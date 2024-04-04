@@ -31,31 +31,21 @@ public class BookingService {
     }
 
     public String makeBooking(String customer_id, String room_id,
-            String check_in_date, String check_out_date,
+            String check_in_date,
             boolean is_canceled) {
 
-        if (customer_id == null || room_id == null || check_in_date == null || check_out_date == null)
-            return "Invalid input";
+        Customer customer_details = customerRepository.findById(customer_id).orElseThrow(
+                () -> new IllegalArgumentException("No customer found"));
 
-        Optional<Customer> customer_details = customerRepository.findById(customer_id);
-                
-
-        Optional<Room> room_details = roomRepository.findById(room_id);
-                
-
-        if (customer_details.isEmpty() || room_details.isEmpty()) {
-            return "Customer or Room not found";
-        }
+        Room room_details = roomRepository.findById(room_id).orElseThrow(
+                () -> new IllegalArgumentException("No room found"));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         // convert check_in time into LocalDateTime
         LocalDateTime check_in = LocalDateTime.parse(check_in_date, formatter);
 
-        // convert check_out time into LocalDateTime
-        LocalDateTime check_out = LocalDateTime.parse(check_out_date, formatter);
-
-        Booking newBooking = new Booking(customer_details.get(), room_details.get(), check_in, check_out, is_canceled);
+        Booking newBooking = new Booking(customer_details, room_details, check_in, is_canceled);
 
         bookingRepository.save(newBooking);
         return "Booking done successfully";
@@ -63,17 +53,43 @@ public class BookingService {
 
     public List<Booking> getMyBooking(String customer_id) {
 
-        if (customer_id == null)
-            throw new NullPointerException("Invalid input");
+        Customer customer = customerRepository.findById(customer_id)
+                .orElseThrow(() -> new IllegalArgumentException("No customer found"));
 
-        Optional<List<Booking>> bookings = Optional
-                .ofNullable(customerRepository.findById(customer_id).get().getBookings());
+        List<Booking> bookings = Optional.ofNullable(customer.getBookings()).orElseThrow(
+                () -> new IllegalArgumentException("No bookings found"));
 
-        if (bookings.isEmpty()) {
-            throw new IllegalArgumentException("No bookings found");
-        } else
-            return bookings.get();
+        return bookings;
 
+    }
+
+    public String cancelBooking(Integer booking_id) {
+
+        Optional<Booking> booking = bookingRepository.findById(booking_id);
+
+        if (booking.isEmpty())
+            return "Booking not found";
+
+        booking.get().setIs_canceled(true);
+        bookingRepository.save(booking.get());
+        return "Booking canceled successfully";
+    }
+
+    public String updateCheckout(Integer booking_id, String check_out_date) {
+
+        Optional<Booking> booking = bookingRepository.findById(booking_id);
+
+        if (booking.isEmpty())
+            return "Booking not found";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // convert check_out time into LocalDateTime
+        LocalDateTime check_out = LocalDateTime.parse(check_out_date, formatter);
+
+        booking.get().setCheck_out_date(check_out);
+        bookingRepository.save(booking.get());
+        return "Checkout date updated successfully";
     }
 
 }
