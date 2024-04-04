@@ -1,16 +1,12 @@
 package com.cognizant.training.hotelmanagement.service;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.cognizant.training.hotelmanagement.model.Booking;
 import com.cognizant.training.hotelmanagement.model.Customer;
 import com.cognizant.training.hotelmanagement.model.Room;
@@ -64,4 +60,20 @@ public class BookingService {
         bookingRepository.save(newBooking);
         return "Booking done successfully";
     }
+
+    public List<Booking> getMyBooking(String customer_id) {
+
+        if (customer_id == null)
+            throw new NullPointerException("Invalid input");
+
+        Optional<List<Booking>> bookings = Optional
+                .ofNullable(customerRepository.findById(customer_id).get().getBookings());
+
+        if (bookings.isEmpty()) {
+            throw new IllegalArgumentException("No bookings found");
+        } else
+            return bookings.get();
+
+    }
+
 }
