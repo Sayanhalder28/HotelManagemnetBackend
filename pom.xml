@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.3</version>
+		<version>3.2.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cognizant.training</groupId>
@@ -47,8 +47,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.30</version><!--$NO-MVN-MAN-VER$-->
+			<artifactId>lombok</artifactId><!--$NO-MVN-MAN-VER$-->
 			<scope>provided</scope>
     	</dependency>
 	</dependencies>

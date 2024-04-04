@@ -3,16 +3,9 @@ package com.cognizant.training.hotelmanagement.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.training.hotelmanagement.model.Booking;
-import com.cognizant.training.hotelmanagement.model.Customer;
-import com.cognizant.training.hotelmanagement.model.Room;
-import com.cognizant.training.hotelmanagement.repository.CustomerRepository;
-import com.cognizant.training.hotelmanagement.repository.RoomRepository;
 import com.cognizant.training.hotelmanagement.service.BookingService;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
@@ -37,4 +30,10 @@ public class BookingController {
                 return bookingService.makeBooking(customer_id, room_id, check_in_date, check_out_date, is_canceled);
 
         }
+
+        @GetMapping("/my-booking")
+        public List<Booking> getMethodName(@RequestParam String customer_id) {
+            return bookingService.getMyBooking(customer_id);
+        }
+        
 }
