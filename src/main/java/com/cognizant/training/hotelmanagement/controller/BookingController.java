@@ -8,43 +8,42 @@ import com.cognizant.training.hotelmanagement.service.BookingService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class BookingController {
 
-        @Autowired
-        private BookingService bookingService;
+    @Autowired
+    private BookingService bookingService;
 
-        @GetMapping("/all-booking-details")
-        public List<Booking> getAllBookingDetails() {
-                return bookingService.getAllBookingDetails();
-        }
+    @GetMapping("/all-booking-details")
+    public List<Booking> getAllBookingDetails() {
+        return bookingService.getAllBookingDetails();
+    }
 
-        @GetMapping("/make-booking")
-        public String makeBooking(@RequestParam String customer_id, @RequestParam String room_id,
-                        @RequestParam String check_in_date, @RequestParam String check_out_date,
-                        @RequestParam boolean is_canceled) {
+    @GetMapping("/make-booking/{customer_id}/{room_id}/{check_in_date}/{is_canceled}")
+    public String makeBooking(@PathVariable String customer_id,
+            @PathVariable String room_id,
+            @PathVariable String check_in_date,
+            @PathVariable boolean is_canceled) {
+        // Call the bookingService to make the booking
+        return bookingService.makeBooking(customer_id, room_id, check_in_date, is_canceled);
+    }
 
-                return bookingService.makeBooking(customer_id, room_id, check_in_date, is_canceled);
+    @GetMapping("/my-booking/{customer_id}")
+    public List<Booking> myBooking(@PathVariable String customer_id) {
+        return bookingService.getMyBooking(customer_id);
+    }
 
-        }
+    @GetMapping("/cancel-booking/{booking_id}")
+    public String cancelBooking(@PathVariable Integer booking_id) {
+        return bookingService.cancelBooking(booking_id);
+    }
 
-        @GetMapping("/my-booking")
-        public List<Booking> myBooking(@RequestParam String customer_id) {
-            return bookingService.getMyBooking(customer_id);
-        }
+    @GetMapping("/update-checkout/{booking_id}/{check_out_date}")
+    public String updateCheckout(@PathVariable Integer booking_id,
+            @PathVariable String check_out_date) {
+        return bookingService.updateCheckout(booking_id, check_out_date);
+    }
 
-        @GetMapping("/cancel-booking")
-        public String getMethodName(@RequestParam Integer booking_id) {
-            return bookingService.cancelBooking(booking_id);
-        }
-
-        //update checkout date
-        @GetMapping("/update-checkout")
-        public String getMethodName(@RequestParam Integer booking_id, @RequestParam String check_out_date) {
-            return bookingService.updateCheckout(booking_id, check_out_date);
-        }
-        
 }

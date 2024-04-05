@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.cognizant.training.hotelmanagement.model.Room;
 import com.cognizant.training.hotelmanagement.service.RoomService;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 public class RoomController {
@@ -22,11 +22,13 @@ public class RoomController {
         return roomService.getAllRoomDetails();
     }
 
-    @GetMapping("/add-room")
-    public String getMethodName(@RequestParam String staff_id ,@RequestParam String room_no, @RequestParam String room_type,
-            @RequestParam String room_status) {
+    @GetMapping("/add-room/{staff_id}/{room_no}/{room_type}/{room_status}")
+    public String addRoom(@PathVariable String staff_id,
+            @PathVariable String room_no,
+            @PathVariable String room_type,
+            @PathVariable String room_status) {
 
-        String response = roomService.addRoom(staff_id,room_no, room_type, room_status);
+        String response = roomService.addRoom(staff_id, room_no, room_type, room_status);
 
         return response;
     }
