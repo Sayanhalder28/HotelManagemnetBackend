@@ -27,7 +27,7 @@ public class CustomerService {
     }
 
     // login service
-    public String login(String mail, String password) {
+    public String loginCustomer(String mail, String password) {
         Optional<Customer> response = customerRepository.findByMailAndPassword(mail,
                 password);
         if (response.isPresent()) {

@@ -15,8 +15,8 @@ public class Staff {
 
     @Id
     @Column(name = "staff_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String staff_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer staff_id;
 
     @Column(name = "first_name", nullable = false, length = 50)
     private String first_name;
@@ -45,11 +45,11 @@ public class Staff {
     }
     // getters and setters
 
-    public String getStaff_ID() {
+    public Integer getStaff_ID() {
         return staff_id;
     }
 
-    public void setStaff_ID(String staff_ID) {
+    public void setStaff_ID(Integer staff_ID) {
         this.staff_id = staff_ID;
     }
 

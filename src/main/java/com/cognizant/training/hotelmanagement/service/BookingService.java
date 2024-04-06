@@ -30,7 +30,7 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public String makeBooking(String customer_id, String room_id,
+    public String makeBooking(Integer customer_id, Integer room_id,
             String check_in_date,
             boolean is_canceled) {
 
@@ -51,7 +51,7 @@ public class BookingService {
         return "Booking done successfully";
     }
 
-    public List<Booking> getMyBooking(String customer_id) {
+    public List<Booking> getMyBooking(Integer customer_id) {
 
         Customer customer = customerRepository.findById(customer_id)
                 .orElseThrow(() -> new IllegalArgumentException("No customer found"));

@@ -17,8 +17,8 @@ import jakarta.persistence.Table;
 public class Room {
     @Id
     @Column(name = "room_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String room_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer room_id;
     @Column(name = "room_no", nullable = false, length = 20, unique = true)
     private String room_no;
     @Column(name = "room_type", nullable = false, length = 50)
@@ -50,12 +50,12 @@ public class Room {
 
     // Getter and Setter methods
 
-    public String getRoom_id() {
+    public Integer getRoom_id() {
         return room_id;
     }
 
-    public String setRoom_id(String room_id) {
-        return this.room_id = room_id;
+    public void setRoom_id(Integer room_id) {
+        this.room_id = room_id;
     }
 
     public String getRoom_no() {

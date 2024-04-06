@@ -18,8 +18,8 @@ public class Customer {
 
     @Id
     @Column(name = "customer_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String customer_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer customer_id;
 
     @Column(name = "password", nullable = false, length = 50)
     private String password;
@@ -62,11 +62,11 @@ public class Customer {
         this.bookings = bookings;
     }
 
-    public String getCustomer_id() {
+    public Integer getCustomer_id() {
         return customer_id;
     }
 
-    public void setCustomer_id(String customer_id) {
+    public void setCustomer_id(Integer customer_id) {
         this.customer_id = customer_id;
     }
 

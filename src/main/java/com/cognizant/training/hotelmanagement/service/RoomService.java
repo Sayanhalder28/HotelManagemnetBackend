@@ -24,7 +24,7 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public String addRoom(String staff_id, String room_no, String room_type, String room_status) {
+    public String addRoom(Integer staff_id, String room_no, String room_type, String room_status) {
 
         // check whether the user is authorised to add new room
 
@@ -35,13 +35,13 @@ public class RoomService {
         } else {
             String position = staff_details.get().getPosition();
             System.out.println(position);
-            if (!position.equals("manager")) {
+            if (!position.equals("Manager")) {
                 return "User not authorised";
             } else {
                 Room newRoom = new Room(room_no, room_type, room_status);
                 Optional<Room> response = Optional.ofNullable(roomRepository.save(newRoom));
                 if (response.isPresent()) {
-                    return response.get().getRoom_id();
+                    return "Added room With id : " + response.get().getRoom_id();
                 } else {
                     return "null";
                 }

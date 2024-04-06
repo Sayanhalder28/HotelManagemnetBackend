@@ -27,10 +27,10 @@ public class StaffService {
         return Optional.ofNullable(staffRepository.save(newStaff));
     }
 
-    public String login(String mail, String password) {
+    public String loginStaff(String mail, String password) {
         Optional<Staff> response = staffRepository.findByMailAndPassword(mail, password);
         if (response.isPresent()) {
-            return response.get().getStaff_ID();
+            return "Stuff successfully loged in . Id : "+ response.get().getStaff_ID();
         } else {
             return "null";
         }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HotelmanagementApplicationController {
 
     @GetMapping("/")
-    public String getAllStuffDetails() {
+    public String indexController() {
         return "Hotel Management Application";
     }
 }

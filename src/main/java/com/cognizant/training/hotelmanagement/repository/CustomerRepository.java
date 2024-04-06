@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cognizant.training.hotelmanagement.model.Customer;
 
-public interface CustomerRepository extends JpaRepository<Customer, String> {
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Optional<Customer> findByMailAndPassword(String mail, String password);
 

@@ -13,14 +13,6 @@ public class CustomerRequest {
     public CustomerRequest() {
     }
 
-    public CustomerRequest(String firstName, String lastName, String password, String phoneNo, String mail) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.phoneNo = phoneNo;
-        this.mail = mail;
-    }
-
     // Getters and setters
 
     public String getFirstName() {
