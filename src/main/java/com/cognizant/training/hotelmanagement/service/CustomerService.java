@@ -28,12 +28,21 @@ public class CustomerService {
 
     // login service
     public String loginCustomer(String mail, String password) {
+        // check the mail and passord string length
+        if (mail.length() < 1 || password.length() < 1) {
+            return "{\"success\":false,\"message\":\"fields can not be empty\"}";
+        }
         Optional<Customer> response = customerRepository.findByMailAndPassword(mail,
                 password);
         if (response.isPresent()) {
-            return "loged in successfully";
+            return "{\"success\":true,\"data\":{\"customer_id\":" + response.get().getCustomer_id()
+                    + ",\"first_name\":\""
+                    + response.get().getFirst_name()
+                    + "\",\"last_name\":\"" + response.get().getLast_name()
+                    + "\",\"phone_no\":\"" + response.get().getPhone_no() + "\",\"mail\":\"" + response.get().getMail()
+                    + "\"},\"message\":\"Logged in succefully\"}";
         } else {
-            return "login failed";
+            return "{\"success\":false,\"message\":\"mail or password is incorrect\"}";
         }
     }
 

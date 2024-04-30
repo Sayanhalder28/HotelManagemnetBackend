@@ -28,11 +28,21 @@ public class StaffService {
     }
 
     public String loginStaff(String mail, String password) {
+
+        if (mail.length() < 1 || password.length() < 1) {
+            return "{\"success\":false,\"message\":\"fields can not be empty\"}";
+        }
+
         Optional<Staff> response = staffRepository.findByMailAndPassword(mail, password);
         if (response.isPresent()) {
-            return "Stuff successfully loged in . Id : "+ response.get().getStaff_ID();
+            return "{\"success\":true,\"data\":{\"staff_id\":" + response.get().getStaff_ID()
+                    + ",\"first_name\":\""
+                    + response.get().getFirst_name()
+                    + "\",\"last_name\":\"" + response.get().getLast_name()
+                    + "\",\"position\":\"" + response.get().getPosition() + "\",\"mail\":\"" + response.get().getMail()
+                    + "\"},\"message\":\"Logged in succefully\"}";
         } else {
-            return "null";
+            return "{\"success\":false,\"message\":\"mail or password is incorrect\"}";
         }
     }
 
