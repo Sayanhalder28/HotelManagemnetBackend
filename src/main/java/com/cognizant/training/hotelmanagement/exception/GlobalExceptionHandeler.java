@@ -21,6 +21,6 @@ public class GlobalExceptionHandeler {
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public String SQLIntegrityConstraintViolationExceptionHandeler(Exception e) {
-        return e.getMessage();
+        return "{\"success\":false,\"message\":\"Already Exists\"}";
     }
 }

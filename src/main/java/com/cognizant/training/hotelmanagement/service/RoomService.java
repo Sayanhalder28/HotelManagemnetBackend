@@ -41,7 +41,8 @@ public class RoomService {
                 Room newRoom = new Room(room_no, room_type, room_status);
                 Optional<Room> response = Optional.ofNullable(roomRepository.save(newRoom));
                 if (response.isPresent()) {
-                    return "Added room With id : " + response.get().getRoom_id();
+                    return "{\"success\":true,\"message\":\"Room Registerd Succesfully\"}";
+
                 } else {
                     return "null";
                 }

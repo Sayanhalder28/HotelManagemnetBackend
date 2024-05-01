@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.training.hotelmanagement.service.StaffService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class StaffController {
 
     @Autowired
@@ -35,9 +37,9 @@ public class StaffController {
 
         Optional<Staff> savedStaff = staffService.addStaff(firstName, lastName, password, mail, position);
         if (savedStaff.isPresent()) {
-            return "Staff registered with id : "+savedStaff.get().getStaff_ID();
+            return "{\"success\":true,\"message\":\"Staff Registerd Succesfully\"}";
         } else {
-            return "Staff registration failed";
+            return "{\"success\":false,\"message\":\"Staff not registered . Please try again\"}";
         }
     }
 

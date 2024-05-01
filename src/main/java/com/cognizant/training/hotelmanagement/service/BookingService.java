@@ -35,10 +35,10 @@ public class BookingService {
             boolean is_canceled) {
 
         Customer customer_details = customerRepository.findById(customer_id).orElseThrow(
-                () -> new IllegalArgumentException("No customer found"));
+                () -> new IllegalArgumentException("{\"success\":false,\"message\":\"User Not Found\"}"));
 
         Room room_details = roomRepository.findById(room_id).orElseThrow(
-                () -> new IllegalArgumentException("No room found"));
+                () -> new IllegalArgumentException("{\"success\":false,\"message\":\"Room Not Found Succesfully\"}"));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -48,7 +48,10 @@ public class BookingService {
         Booking newBooking = new Booking(customer_details, room_details, check_in, is_canceled);
 
         bookingRepository.save(newBooking);
-        return "Booking done successfully";
+
+        room_details.setRoom_status("Booked");
+        roomRepository.save(room_details);
+        return "{\"success\":true,\"message\":\"Room Booked Succesfully\"}";
     }
 
     public List<Booking> getMyBooking(Integer customer_id) {
@@ -68,11 +71,15 @@ public class BookingService {
         Optional<Booking> booking = bookingRepository.findById(booking_id);
 
         if (booking.isEmpty())
-            return "Booking not found";
+            return "{\"success\":false,\"message\":\"No booking found with the given Id\"}";
+
+        Room room = booking.get().getRoom_id_fk();
+        room.setRoom_status("Available");
+        roomRepository.save(room);
 
         booking.get().setIs_canceled(true);
         bookingRepository.save(booking.get());
-        return "Booking canceled successfully";
+        return "{\"success\":true,\"message\":\"Booking canceled Succesfully\"}";
     }
 
     public String updateCheckout(Integer booking_id, String check_out_date) {
@@ -80,7 +87,12 @@ public class BookingService {
         Optional<Booking> booking = bookingRepository.findById(booking_id);
 
         if (booking.isEmpty())
-            return "Booking not found";
+            return "{\"success\":false,\"message\":\"No booking found with the given Id\"}";
+
+        // fint the room to updatte its status to available
+        Room room = booking.get().getRoom_id_fk();
+        room.setRoom_status("Available");
+        roomRepository.save(room);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -89,7 +101,7 @@ public class BookingService {
 
         booking.get().setCheck_out_date(check_out);
         bookingRepository.save(booking.get());
-        return "Checkout date updated successfully";
+        return "{\"success\":true,\"message\":\"Checkout date updated successfully\"}";
     }
 
 }

@@ -32,6 +32,8 @@ public class BookingController {
         String checkInDate = request.getCheckInDate();
         boolean isCanceled = request.isCanceled();
 
+        checkInDate = checkInDate + " 12:00:00";
+
         return bookingService.makeBooking(customerId, roomId, checkInDate, isCanceled);
     }
 
